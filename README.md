@@ -2,6 +2,7 @@
 <br>
 A simple Javascript dice rolling game for practicing my DOM manipulation. 
 <br>
+<br>
 
 **GAME RULES** <br>
 The game is made up of two players.
@@ -13,7 +14,7 @@ When a player rolls 1, the other player's turn to play the game.
 To **win the game**, a player must accumulate a **total score of 100** or more.
 Keep playing!
 <br>
-
+<br>
 
 **HOW TO PLAY**<br>
 PLAYER 1 is active by default. If you want Player 2 to start the game, Hold the score(0) on game start.
