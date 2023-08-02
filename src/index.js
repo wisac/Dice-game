@@ -7,8 +7,11 @@ score0El.textContent = "0";
 score1El.textContent = "0";
 const current0El = document.getElementById("current--0");
 const current1El = document.getElementById("current--1");
+const rollBtn = document.querySelector(".btn--roll");
+const newBtn = document.querySelector(".btn--new");
+const holdBtn = document.querySelector(".btn--hold");
 
-//total tracker for current
+
 let currentPlayerScore = 0;
 let activePlayer = 0;
 let totalScore = [0, 0];
@@ -28,8 +31,23 @@ function diceShower(number) {
     diceEl.src = `images/dice-${number}.png`;
 }
 
+function switchPlayer() {
+    currentPlayerScore = 0;
+    document.getElementById(`current--${activePlayer}`).textContent = "0";
+    // disable active player
+    document
+        .querySelector(`.player--${activePlayer}`)
+        .classList.remove("player--active");
+
+    activePlayer = activePlayer === 0 ? 1 : 0; // change active player
+
+    //set new active player
+    document
+        .querySelector(`.player--${activePlayer}`)
+        .classList.add("player--active");
+}
+
 //rolling roll button click and handle event
-const rollBtn = document.querySelector(".btn--roll");
 rollBtn.addEventListener("click", function () {
     //generate random number from 1 to 6
     const numberRolled = randomGenerator(1, 6);
@@ -46,18 +64,19 @@ rollBtn.addEventListener("click", function () {
             currentPlayerScore;
     }
     else {
-        currentPlayerScore = 0;
-        document.getElementById(`current--${activePlayer}`).textContent = "0";
-        // disable active player
-        document
-            .querySelector(`.player--${activePlayer}`)
-            .classList.remove("player--active");
-
-        activePlayer = activePlayer === 0 ? 1 : 0; // change active player
-
-        //set new active player
-        document
-            .querySelector(`.player--${activePlayer}`)
-            .classList.add("player--active");
+        switchPlayer();
     }
+});
+
+
+holdBtn.addEventListener("click", function () {
+    //display active player score on main score
+    totalScore[activePlayer] += currentPlayerScore;
+    document.getElementById(`score--${activePlayer}`).textContent = totalScore[activePlayer];
+
+    //if score >= 100 active player wins
+
+    //else switch user
+    switchPlayer();
+
 });
