@@ -7,6 +7,7 @@ score0El.textContent = "0";
 score1El.textContent = "0";
 const current0El = document.getElementById("current--0");
 const current1El = document.getElementById("current--1");
+const diceEl = document.querySelector(".dice");
 const rollBtn = document.querySelector(".btn--roll");
 const newBtn = document.querySelector(".btn--new");
 const holdBtn = document.querySelector(".btn--hold");
@@ -15,9 +16,9 @@ const holdBtn = document.querySelector(".btn--hold");
 let currentPlayerScore = 0;
 let activePlayer = 0;
 let totalScore = [0, 0];
+let playingGame = true;
 
 //Hide dice on start
-const diceEl = document.querySelector(".dice");
 diceEl.classList.add("hidden");
 
 //function that generates random numbers within a range
@@ -47,36 +48,72 @@ function switchPlayer() {
         .classList.add("player--active");
 }
 
-//rolling roll button click and handle event
+//roll button click and handle event
 rollBtn.addEventListener("click", function () {
-    //generate random number from 1 to 6
-    const numberRolled = randomGenerator(1, 6);
+    if (playingGame) {
+        //generate random number from 1 to 6
+        const numberRolled = randomGenerator(1, 6);
 
-    //display dice corresponding to number on screen
-    diceShower(numberRolled);
-    console.log(numberRolled);
+        //display dice corresponding to number on screen
+        diceShower(numberRolled);
+        console.log(numberRolled);
 
-    //add dice to score
-    if (numberRolled != 1) {
-        //add number rolled to current score
-        currentPlayerScore += numberRolled;
-        document.getElementById(`current--${activePlayer}`).textContent =
-            currentPlayerScore;
-    }
-    else {
-        switchPlayer();
+        //add dice to score
+        if (numberRolled != 1) {
+            //add number rolled to current score
+            currentPlayerScore += numberRolled;
+            document.getElementById(`current--${activePlayer}`).textContent =
+                currentPlayerScore;
+        }
+        else {
+            switchPlayer();
+        }
     }
 });
 
 
 holdBtn.addEventListener("click", function () {
-    //display active player score on main score
-    totalScore[activePlayer] += currentPlayerScore;
-    document.getElementById(`score--${activePlayer}`).textContent = totalScore[activePlayer];
+    if (playingGame) {
+        //display active player score on main score
+        totalScore[activePlayer] += currentPlayerScore;
+        document.getElementById(`score--${activePlayer}`).textContent = totalScore[activePlayer];
 
-    //if score >= 100 active player wins
+        //if score >= 100 active player wins
+        if (totalScore[activePlayer] >= 10) {
+            document.querySelector(`.player--${activePlayer}`).classList.add("player--winner");
+            diceEl.classList.add("hidden");
+            playingGame = false;
+        }
+        else {
+            //switch user
+            switchPlayer();
+        }
+    }
+});
 
-    //else switch user
+
+newBtn.addEventListener("click", function () {
+    //reset total score
+    totalScore[0] = 0;
+    totalScore[1] = 0;
+
+    //hide dice
+    diceEl.classList.add("hidden");
+    
+    //remove winner class
+    document.querySelector(`.player--${activePlayer}`).classList.remove("player--winner");
+
+    //reset all displayed score
+    current0El.textContent = "0";
+    current1El.textContent = "0";
+    score0El.textContent = "0";
+    score1El.textContent = "0";
+
+    //switch player
+    activePlayer = 1; // so that switchUser() will activate user 0 by changing inverting active user
     switchPlayer();
+
+    //reset game state
+    playingGame = true;
 
 });
