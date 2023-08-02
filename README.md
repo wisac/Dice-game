@@ -1,7 +1,9 @@
-**DICE GAME**<br>
-A simple Javascript dice rolling game for practicing my DOM manipulation
+**DICE GAME** 
 <br>
-**GAME RULES**<br>
+A simple Javascript dice rolling game for practicing my DOM manipulation. 
+<br>
+
+**GAME RULES** <br>
 The game is made up of two players.
 When a player roll the dice, the number rolled is stored as current score of the player. The player would decide to either keep on rolling the dice or *hold* the current score and give the other player the chance to also play.
 
@@ -23,6 +25,7 @@ PLAYER 1 is active by default. If you want Player 2 to start the game, Hold the 
 
 
 <br>
-**References:**
+
+**References:** <br>
 Jonas Schmedtmann, 
     https://www.udemy.com/course/the-complete-javascript-course/
