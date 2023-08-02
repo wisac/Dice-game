@@ -27,15 +27,26 @@ function diceShower(number) {
     diceEl.src = `images/dice-${number}.png`;
 }
 
+//rolling roll button click and handle event
 const rollBtn = document.querySelector(".btn--roll");
 rollBtn.addEventListener("click", function () {
     //generate random number from 1 to 6
-    const numberPlayed = randomGenerator(1, 6);
+    const numberRolled = randomGenerator(1, 6);
 
-    //display corresponding dice to number
-    diceShower(numberPlayed);
-    console.log(numberPlayed);
+    //display dice corresponding to number on screen
+    diceShower(numberRolled);
+    console.log(numberRolled);
 
+    //add dice to score
+    if (numberRolled != 1) {
+        //add number rolled to current score
+        currentScore += numberRolled;
+        current0El.textContent = currentScore;
+    }
+    else {
+        current0El.textContent = "0";
+        //switch user
+    }
     
 });
 
