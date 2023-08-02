@@ -12,7 +12,6 @@ const rollBtn = document.querySelector(".btn--roll");
 const newBtn = document.querySelector(".btn--new");
 const holdBtn = document.querySelector(".btn--hold");
 
-
 let currentPlayerScore = 0;
 let activePlayer = 0;
 let totalScore = [0, 0];
@@ -48,7 +47,8 @@ function switchPlayer() {
         .classList.add("player--active");
 }
 
-//roll button click and handle event
+
+//ROLLING DICE 
 rollBtn.addEventListener("click", function () {
     if (playingGame) {
         //generate random number from 1 to 6
@@ -72,6 +72,8 @@ rollBtn.addEventListener("click", function () {
 });
 
 
+
+//HOLDING SCORE
 holdBtn.addEventListener("click", function () {
     if (playingGame) {
         //display active player score on main score
@@ -79,7 +81,7 @@ holdBtn.addEventListener("click", function () {
         document.getElementById(`score--${activePlayer}`).textContent = totalScore[activePlayer];
 
         //if score >= 100 active player wins
-        if (totalScore[activePlayer] >= 10) {
+        if (totalScore[activePlayer] >= 100) {
             //add winner ui design
             document.querySelector(`.player--${activePlayer}`).classList.add("player--winner");
             diceEl.classList.add("hidden");
@@ -96,6 +98,8 @@ holdBtn.addEventListener("click", function () {
 });
 
 
+
+//RESET GAME
 newBtn.addEventListener("click", function () {
     //reset total score
     totalScore[0] = 0;
