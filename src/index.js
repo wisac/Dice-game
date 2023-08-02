@@ -80,8 +80,12 @@ holdBtn.addEventListener("click", function () {
 
         //if score >= 100 active player wins
         if (totalScore[activePlayer] >= 10) {
+            //add winner ui design
             document.querySelector(`.player--${activePlayer}`).classList.add("player--winner");
             diceEl.classList.add("hidden");
+
+            //add winner label to player
+            document.querySelectorAll(".name")[activePlayer].textContent = "WINNER!"
             playingGame = false;
         }
         else {
@@ -102,6 +106,9 @@ newBtn.addEventListener("click", function () {
     
     //remove winner class
     document.querySelector(`.player--${activePlayer}`).classList.remove("player--winner");
+
+    //Remove WINNER label and reset player name
+    document.querySelectorAll(".name")[activePlayer].textContent = `PLAYER ${activePlayer + 1}`;
 
     //reset all displayed score
     current0El.textContent = "0";
