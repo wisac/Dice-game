@@ -9,7 +9,9 @@ const current0El = document.getElementById("current--0");
 const current1El = document.getElementById("current--1");
 
 //total tracker for current
-let currentScore = 0;
+let currentPlayerScore = 0;
+let activePlayer = 0;
+let totalScore = [0, 0];
 
 //Hide dice on start
 const diceEl = document.querySelector(".dice");
@@ -17,8 +19,7 @@ diceEl.classList.add("hidden");
 
 //function that generates random numbers within a range
 function randomGenerator(min, max) {
-    return Math.floor((Math.random() * (max - min + 1) + min));
-
+    return Math.floor(Math.random() * (max - min + 1) + min);
 }
 
 //function that shows specific dies
@@ -40,13 +41,23 @@ rollBtn.addEventListener("click", function () {
     //add dice to score
     if (numberRolled != 1) {
         //add number rolled to current score
-        currentScore += numberRolled;
-        current0El.textContent = currentScore;
+        currentPlayerScore += numberRolled;
+        document.getElementById(`current--${activePlayer}`).textContent =
+            currentPlayerScore;
     }
     else {
-        current0El.textContent = "0";
-        //switch user
-    }
-    
-});
+        currentPlayerScore = 0;
+        document.getElementById(`current--${activePlayer}`).textContent = "0";
+        // disable active player
+        document
+            .querySelector(`.player--${activePlayer}`)
+            .classList.remove("player--active");
 
+        activePlayer = activePlayer === 0 ? 1 : 0; // change active player
+
+        //set new active player
+        document
+            .querySelector(`.player--${activePlayer}`)
+            .classList.add("player--active");
+    }
+});
